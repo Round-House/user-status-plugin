@@ -1,0 +1,54 @@
+version: "3.9"
+services:
+  # NestJS Backend
+  api:
+    build:
+      dockerfile: Dockerfile
+      context: ./backend
+
+      # Only build development stage from Dockerfile, change to "production" for production version
+      target: development
+
+    ports:
+      - "3001:3001"
+
+    env_file: .env
+
+    # Mount host dir to the docker container
+    # Mount api directory (./api) to (:) docker container (/usr/src/app)
+    # Reflect File changes from host to container
+    volumes:
+      - ./backend:/usr/src/app
+      # - /usr/src/app/node_modules/
+
+    # Use "npm run start:debug" for dev with debug,
+    # or "npm run start" for production
+    command: npm run start:debug
+
+    networks:
+      - roundhouse_default
+
+    # links:
+    #   - "redis:redis"
+
+  # Redis Cache
+  # redis:
+  #   image: redis:7.0-alpine
+  #   restart: always
+  #   command:
+  #     - /bin/sh
+  #     - -c
+  #     - redis-server
+  #     - --bind
+  #     - redis
+  #     - --port
+  #     - "6379"
+  #   volumes:
+  #     - ./redis:/data
+  #   ports:
+  #     - 6379:6379
+  #   env_file: .env
+
+networks:
+  roundhouse_default:
+    external: true
