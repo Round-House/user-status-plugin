@@ -32,8 +32,9 @@ export class AppService {
     return from(
       this.statusRepository.findOneOrFail({ where: { userId } }),
     ).pipe(
-      map(() => {
-        return from(this.statusRepository.update(userId, newStatus));
+      map((status: StatusEntity) => {
+        newStatus.id = status.id;
+        return from(this.statusRepository.save(newStatus));
       }),
       catchError(() => {
         return from(this.statusRepository.save(newStatus));

@@ -18,6 +18,7 @@ import { StatusEntity } from './models/status.entity';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
+      autoLoadEntities: true,
       entities: [StatusEntity],
     }),
     TypeOrmModule.forFeature([StatusEntity]),
