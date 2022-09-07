@@ -9,15 +9,15 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('get_status')
-  getStatus(@Body('userId') userId: number): Observable<StatusEntity> {
-    return this.appService.getStatus(userId);
+  getStatus(@Body('userId') account: string): Observable<String> {
+    return this.appService.getStatus(account);
   }
 
   @MessagePattern('set_status')
   setStatus(
-    @Body('userId') userId: number,
+    @Body('account') account: string,
     @Body('status') status: string,
   ): Observable<StatusEntity> {
-    return this.appService.setStatus(userId, status);
+    return this.appService.setStatus(account, status);
   }
 }

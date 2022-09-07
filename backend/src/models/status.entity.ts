@@ -11,5 +11,5 @@ export class StatusEntity {
   status: string;
 
   @Column()
-  userId: number;
+  account: string;
 }

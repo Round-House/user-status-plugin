@@ -11,26 +11,26 @@ export class AppService {
     private readonly statusRepository: Repository<StatusEntity>,
   ) {}
 
-  getStatus(userId: number): Observable<StatusEntity | any> {
+  getStatus(account: string): Observable<StatusEntity | any> {
     return from(
       this.statusRepository.findOneOrFail({
-        where: { userId },
+        where: { account },
       }),
     ).pipe(
       map((status: StatusEntity) => {
-        return status.status;
+        return status;
       }),
       catchError((err) => throwError(() => err)),
     );
   }
 
-  setStatus(userId: number, status: string): Observable<any> {
+  setStatus(account: string, status: string): Observable<any> {
     const newStatus = new StatusEntity();
-    newStatus.userId = userId;
+    newStatus.account = account;
     newStatus.status = status;
 
     return from(
-      this.statusRepository.findOneOrFail({ where: { userId } }),
+      this.statusRepository.findOneOrFail({ where: { account } }),
     ).pipe(
       map((status: StatusEntity) => {
         newStatus.id = status.id;
