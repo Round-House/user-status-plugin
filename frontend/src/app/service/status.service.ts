@@ -8,6 +8,6 @@ export class StatusService {
   constructor(private http: HttpClient) {}
 
   getStatus(account: String) {
-    return this.http.post<any>('/api/plugins?request=get_status', account);
+    return this.http.post<any>('/api/plugins?request=get_status', { account });
   }
 }

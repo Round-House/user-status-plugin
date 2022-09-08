@@ -18,7 +18,6 @@ export class StatusIconComponent implements OnInit {
   constructor(private statusService: StatusService) {}
 
   ngOnInit(): void {
-    console.log('test');
     this.statusService
       .getStatus(this.account)
       .pipe(

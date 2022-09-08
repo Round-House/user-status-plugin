@@ -9,7 +9,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('get_status')
-  getStatus(@Body('userId') account: string): Observable<String> {
+  getStatus(@Body('account') account: string): Observable<String> {
     return this.appService.getStatus(account);
   }
 
